@@ -1,8 +1,14 @@
-function App() {
+import Header from "./components/Header"
+import Form from "./components/Form"
+import ListadoPacientes from "./components/ListadoPacientes"
+
+function App() { 
   
   return (
     <>
-      <h1>Hola desde React</h1>
+      <Header />
+      <Form />
+      <ListadoPacientes />
     </>
   )
 }
