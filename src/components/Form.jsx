@@ -1,5 +1,7 @@
-import {useState } from "react"
+import {useState } from "react";
+import Error from "./Error";
 
+// eslint-disable-next-line react/prop-types
 const Form = ({setPacientes, pacientes}) => {
 
   const [nombre, setNombre] = useState('');
@@ -9,6 +11,13 @@ const Form = ({setPacientes, pacientes}) => {
   const [sintomas, setSintomas] = useState('');
 
   const [error, setError] = useState(false);
+
+  const generarId = () => {
+    const random = Math.random().toString(36);
+    const fecha = Date.now().toString(36);
+
+    return random+fecha;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +36,8 @@ const Form = ({setPacientes, pacientes}) => {
       propietario, 
       email, 
       fecha, 
-      sintomas
+      sintomas,
+      id: generarId()
     }
 
     setPacientes([...pacientes, objetoPaciente]);
@@ -50,11 +60,9 @@ const Form = ({setPacientes, pacientes}) => {
         <form onSubmit={handleSubmit} 
           className="bg-white shadow-md rounded-lg py-10 px-5">
 
-          {error && (
-            <div className="bg-red-800 text-white text-center p-3 uppercase font-bold mb-3 rounded">
-              <p>Todos los campos son obligatorios</p>
-            </div>
-          ) }
+          {error && <Error 
+            mensaje='Todos los campos son obligatorios'
+          />}
 
           <div className="mb-5">
             <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold">
